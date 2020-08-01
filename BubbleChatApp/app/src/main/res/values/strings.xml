@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BubbleChat</string>
+    <string name="title_home">Home</string>
+    <string name="title_group">Group</string>
+    <string name="title_contact">Contact</string>
+    <string name="title_person">Person</string>
+
+    <string name="create_group">创建群聊</string>
+    <string name="join_group">加入群聊</string>
+</resources>

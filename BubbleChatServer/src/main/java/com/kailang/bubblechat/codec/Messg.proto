@@ -1,0 +1,69 @@
+syntax="proto3";
+option optimize_for=SPEED;
+option java_package="com.kailang.bubblechat.codec";
+option java_outer_classname="ChatMessage";//外部类名称
+
+message MyMsg{
+  //定义枚举类型，从0开始
+  enum DataType{
+      User=0;
+      PrivateChat=1;
+      GroupChat=2;
+      GroupChatCreate=3;
+      GroupChatJoin=4;
+      GroupChatExit=5;
+      SysInfo=6;
+  }
+  //用data_type标识哪一个枚举类型
+  DataType dataType=1;
+  //只能出现其中一个枚举类型,节省内存
+  oneof dataBody{
+    User user=2;
+    PrivateChat privateChat=3;
+    GroupChat groupChat=4;
+    GroupChatCreate groupCreate=5;
+    GroupChatJoin groupJoin=6;
+    GroupChatExit groupExit=7;
+    SysInfo sysInfo=8;
+  }
+}
+message SysInfo{
+  repeated User userList=1;//repeated User == List<User>
+  repeated Group groupList=2;
+  string sysNotice=3;
+}
+message Group{
+  int32 groupID=1;
+  string groupName=2;
+  int32 creatorID=3;
+}
+message User{
+  int32 userID=1;
+  string userName=2;
+  string userIcon=3;
+  string listenAddrIPv6=4;
+  int32 listenPortIPv6=5;
+}
+message PrivateChat{
+  int32 senderID=1;
+  int32 receiverID=2;
+  string msg=3;
+}
+message GroupChat{
+  int32 senderID=1;
+  int32 groupID=2;
+  string msg=3;
+}
+message GroupChatCreate{
+  int32 groupID=1;
+  string groupName=2;
+  int32 creatorID=3;
+}
+message GroupChatJoin{
+  int32 userID=1;
+  int32 groupID=2;
+}
+message GroupChatExit{
+  int32 userID=1;
+  int32 groupID=2;
+}
